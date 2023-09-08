@@ -22,8 +22,7 @@ export const App = () => {
         const contacts = JSON.parse(savedContacts);
       setContacts({contacts})
       }
-  } 
-,[])
+  },[])
  
   useEffect(() => {
   
