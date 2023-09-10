@@ -4,7 +4,6 @@ import { Contacts } from 'components/Contacts/Contacts';
 import {Phonebook } from 'components/Phonebook/Phonebook';
 import { nanoid } from 'nanoid';
 import { ContactStyled } from './App.styled';
-import PropTypes from 'prop-types';
 
 export const App = () => {
   const getContacts = () => {
@@ -21,7 +20,7 @@ export const App = () => {
    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
  ]
  }
-  const [contacts, setContacts] = useState(getContacts);
+  let [contacts, setContacts] = useState(getContacts);
 
   const [filter, setFilter] = useState('')
 
@@ -43,7 +42,7 @@ export const App = () => {
 const onAddContact = ({ name, number }) => {
   if (!Array.isArray(contacts)) {
  
-    contacts = [];
+   contacts = [];
   }
 
   if (

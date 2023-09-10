@@ -2,7 +2,7 @@ import { PhonebookStyled, Input } from './Phonebook.styled';
 import { nanoid } from 'nanoid';
 
 import { Btn } from './Phonebook.styled'
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 const nameId = nanoid(9);
 const numberId = nanoid(9);
 
@@ -24,7 +24,6 @@ const [formData, setFormData] = useState({
   };
  const  onFormSubmit = event => {
    event.preventDefault();
-    const id = nanoid();
     onAddContact(formData);
     reset()
   };
