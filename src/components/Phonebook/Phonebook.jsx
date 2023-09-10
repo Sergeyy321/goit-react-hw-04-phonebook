@@ -1,42 +1,47 @@
 import { PhonebookStyled, Input } from './Phonebook.styled';
-import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
-import {Btn} from './Phonebook.styled'
-const nameId = nanoid();
-const numberId = nanoid();
 
-export class Phonebook extends Component {
+import { Btn } from './Phonebook.styled'
+import { useEffect, useState } from 'react';
+const nameId = nanoid(9);
+const numberId = nanoid(9);
+
+export const  Phonebook = ({onAddContact,}) => {
   
-  state = {
-    name: '',
-    number: '',
-  };
+const [formData, setFormData] = useState({
+  name: '',
+  number: '',
+});
+
   
-  onChange = event => {
-    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
+  const onChange = (event) => {
+ const { name, value } = event.target;
+ setFormData({ ...formData, [name]: value });
   };
 
-  reset = () => {
-    this.setState({ name: '', number: '' });
+ const  reset = () => {
+  setFormData({name:'',number:''})
   };
-  onFormSubmit = event => {
-    event.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset()
+ const  onFormSubmit = event => {
+   event.preventDefault();
+    const id = nanoid();
+    onAddContact(formData);
+    reset()
   };
+ 
 
-  render() {
+
+
     return (
       <PhonebookStyled>
-        <form action="" onSubmit={this.onFormSubmit}>
+        <form action="" onSubmit={onFormSubmit}>
           <label htmlFor={nameId}>
             <h2>Name</h2>
             <Input
               id={nameId}
-              value={this.state.name}
+              value={formData.name}
               type="text"
-              onChange={this.onChange}
+              onChange={onChange}
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -48,8 +53,8 @@ export class Phonebook extends Component {
             <Input
               id={numberId}
               type="tel"
-              value={this.state.number}
-              onChange={this.onChange}
+              value={formData.number}
+              onChange={onChange}
               name="number"
               pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -61,7 +66,3 @@ export class Phonebook extends Component {
       </PhonebookStyled>
     );
   }
-}
-Phonebook.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
